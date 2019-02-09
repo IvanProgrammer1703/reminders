@@ -38,12 +38,13 @@ class ListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $list = new Lists();
         $list->name = $request->input('name');
         $list->save();
-        return view('list');
+        return view('lsit',compact('list'));
 
     }
 
