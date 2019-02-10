@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lists;
-
+use App\Http\Requests\ListRequest;
 class ListController extends Controller
 {
     /**
@@ -19,7 +19,9 @@ class ListController extends Controller
 
     public function index()
     {
-        return view('list');
+        $lists = Lists::orderBy('id', 'desc')->get();
+
+        return view('list', compact('lists'));
     }
 
     /**
@@ -39,12 +41,13 @@ class ListController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function store(ListRequest $request)
     {
         $list = new Lists();
         $list->name = $request->input('name');
         $list->save();
-        return view('lsit',compact('list'));
+
+        return redirect()->back();
 
     }
 
@@ -90,6 +93,6 @@ class ListController extends Controller
      */
     public function destroy($id)
     {
-        //
+      
     }
 }
